@@ -1,15 +1,15 @@
-# CodePipeline-Nested-CFN
+# CodePipeline-Terraform-Validation (WIP)
 
-This repo contains the CloudFormtaion template which will create a CodePipeline containing multiple stages starting from CodeCommit as source stage, followed by build using CodeBuild, launch test stack, test using CodeBuild, proceed with UAT deployment and wait for manual approval. Once approved it proceed to production stage where it creates a CloudFormation ChangeSet for production stack and wait for approval, once approved it will execute the ChangeSet in production stack.
+This repo contains Terraform which will create a CodePipeline containing multiple stages starting from Github as source stage, followed by build using CodeBuild, launch test stack, test using CodeBuild, proceed with UAT deployment and wait for manual approval. Once approved it proceed to production stage where it moves terraform to a production stack and wait for approval, once approved it will execute the terraform in production.
 
 ![CodePipeline Design](images/Pipeline_Design.png)
 
-Let's start by creating the repositories and enabling Continuous Delivery pipeline for nested CFN.
+Let's start by creating the repositories and enabling Continuous Delivery pipeline with Terraform.
 
 ## Step 1:
 
 ### Create base VPC Stack
-In the [cfn-nested-repo](cfn-nested-repo/) directory there are multiple YAML (*CloudFormation Templates*) & JSON (*CloudFormation Configuration*) files.
+In the [terraform-project](terraform-project/) directory there are multiple terraform files.
 
 **[vpc-stack.yml](cfn-nested-repo/vpc-stack.yml):** is the CloudFormation template to create the base VPC, Subnets, NAT Gateways, etc which will be used.
 **[vpc-params.json](cfn-nested-repo/vpc-params.json):** is the parameters file which contains the parameter values for the CFN template. Update the *ProdApprovalEmail & UATApprovalEmail* values to provide the appropriate email address.
